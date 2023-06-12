@@ -1,4 +1,4 @@
-.header {
+.header-container {
   display: flex;
   background-color: #f2f2f2;
   font-weight: bold;
@@ -12,14 +12,6 @@
   cursor: col-resize;
 }
 
-.resize-handle {
-  position: absolute;
-  top: 0;
-  right: -5px;
-  bottom: 0;
-  width: 10px;
-  cursor: col-resize;
-}
 
 .even {
   background-color: #f9f9f9;

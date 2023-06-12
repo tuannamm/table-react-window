@@ -10,13 +10,12 @@ interface BodyProps {
 const Body = (props: BodyProps) => {
   const { data, columnWidths } = props;
 
-  
   return (
     <div>
       <List
         height={600}
         itemCount={data.length}
-        itemSize={50}
+        itemSize={30}
         width={columnWidths.reduce((acc:any, width:any) => acc + width, 0)}
       >
         {({ index, style }) => (

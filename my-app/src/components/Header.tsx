@@ -15,7 +15,7 @@ const Header = (props: HeaderProps) => {
   }
 
   return (
-    <div className='header-container' style={{display: "flex", width: `${columnWidths.reduce((acc:any, width:any) => acc + width, 0)}`}}>
+    <div className='header-container' style={{width: `${columnWidths.reduce((acc:any, width:any) => acc + width, 0)}`}}>
       <div style={{width: columnWidths[0]}}>
         <ResizableColumn onResize={handleResize(0)}>ID</ResizableColumn>
       </div>

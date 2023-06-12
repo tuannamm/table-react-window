@@ -21,6 +21,7 @@ const ResizableColumn = (props: ResizableColumnProps) => {
   const handleMouseDown = (event: any) => {  
     setIsResizing(true);
     setStartX(event.clientX);
+    console.log('mousedown')
   }
 
   const handleMouseMove = (event: any) => {  
@@ -34,7 +35,6 @@ const ResizableColumn = (props: ResizableColumnProps) => {
 
   const handleMouseUp = (event: any) => {  
     setIsResizing(false);
- 
     if (cellRef.current) {
       const cellWidth = cellRef.current.getBoundingClientRect().width;
       onResize(cellWidth);
