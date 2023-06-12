@@ -1,0 +1,30 @@
+.header {
+  display: flex;
+  background-color: #f2f2f2;
+  font-weight: bold;
+}
+
+.resizable-header-cell {
+  position: relative;
+  overflow: hidden;
+  padding: 8px;
+  border-right: 1px solid #ccc;
+  cursor: col-resize;
+}
+
+.resize-handle {
+  position: absolute;
+  top: 0;
+  right: -5px;
+  bottom: 0;
+  width: 10px;
+  cursor: col-resize;
+}
+
+.even {
+  background-color: #f9f9f9;
+}
+
+.odd {
+  background-color: #fff;
+}
