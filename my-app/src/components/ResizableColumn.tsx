@@ -1,5 +1,4 @@
-import React, { useRef, useState } from 'react'
-
+import React, { useCallback, useEffect, useRef, useState } from "react";
 
 /* 
   1. truyen column co the resizable
@@ -11,48 +10,55 @@ interface ResizableColumnProps {
 }
 
 const ResizableColumn = (props: ResizableColumnProps) => {
-  const {children, onResize} = props;
+  const { children, onResize } = props;
 
   const [width, setWidth] = useState<any>(100);
-  const [isResizing, setIsResizing] = useState<any>(false);
-  const [startX, setStartX] = useState<any>(0);
+  const isResizing = useRef(false);
   const cellRef = useRef<any>(null);
 
-  const handleMouseDown = (event: any) => {  
-    setIsResizing(true);
-    setStartX(event.clientX);
-    console.log('mousedown')
-  }
+  const handleMouseDown = (event: any) => {
+    isResizing.current = true;
+  };
 
-  const handleMouseMove = (event: any) => {  
-     if (isResizing && cellRef.current) {
-      const newWidth = width + event.clientX - startX;
-      setWidth(newWidth);
-      setStartX(event.clientX);
-      onResize(newWidth);
-    }
-  }
+  const handleMouseMove = useCallback(
+    (event: any) => {
+      if (isResizing.current && cellRef.current) {
+        const newWidth = width + event.movementX;
+        setWidth(newWidth);
+        onResize(newWidth);
+      }
+    },
+    [width, onResize]
+  );
 
-  const handleMouseUp = (event: any) => {  
-    setIsResizing(false);
-    if (cellRef.current) {
-      const cellWidth = cellRef.current.getBoundingClientRect().width;
-      onResize(cellWidth);
-    } 
-    console.log('mouseup')
-  }
-  
+  const handleMouseUp = useCallback(
+    (event: any) => {
+      isResizing.current = false;
+      // if (cellRef.current) {
+      //   // const cellWidth = cellRef.current.getBoundingClientRect().width;
+      // }
+      // onResize(width);
+    },
+    [width, onResize]
+  );
+
+  useEffect(() => {
+    document.addEventListener("mousemove", handleMouseMove);
+    document.addEventListener("mouseup", handleMouseUp);
+    return () => {
+      document.removeEventListener("mousemove", handleMouseMove);
+      document.removeEventListener("mouseup", handleMouseUp);
+    };
+  }, [handleMouseMove, handleMouseUp]);
+
   return (
-    <div 
-      className="resizable-header-cell"
-      style={{ width }}
-      ref={cellRef}
-      onMouseDown={handleMouseDown}
-      onMouseMove={handleMouseMove}
-      onMouseUp={handleMouseUp}>
+    <div className="resizable-header-cell" style={{ width }} ref={cellRef}>
+      <>
         {children}
+        <div className="resizing" onMouseDown={handleMouseDown}></div>
+      </>
     </div>
-  )
-}
+  );
+};
 
 export default ResizableColumn;
