@@ -16,13 +16,17 @@ const ResizableColumn = (props: ResizableColumnProps) => {
   const isResizing = useRef(false);
   const cellRef = useRef<any>(null);
 
-  const handleMouseDown = (event: any) => {
+  const handleMouseDown: React.MouseEventHandler<HTMLDivElement> = (event) => {
+    event.preventDefault();
+    event.stopPropagation();
     isResizing.current = true;
   };
 
   const handleMouseMove = useCallback(
-    (event: any) => {
+    (event: MouseEvent) => {
       if (isResizing.current && cellRef.current) {
+        event.preventDefault();
+        event.stopPropagation();
         const newWidth = width + event.movementX;
         setWidth(newWidth);
         onResize(newWidth);
@@ -32,7 +36,7 @@ const ResizableColumn = (props: ResizableColumnProps) => {
   );
 
   const handleMouseUp = useCallback(
-    (event: any) => {
+    (event: MouseEvent) => {
       isResizing.current = false;
       // if (cellRef.current) {
       //   // const cellWidth = cellRef.current.getBoundingClientRect().width;
