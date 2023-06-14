@@ -1,3 +1,7 @@
+.table-container {
+  margin: 0 auto;
+}
+
 .header-container {
   display: flex;
   background-color: #f2f2f2;
@@ -7,7 +11,7 @@
 .resizable-header-cell {
   position: relative;
   padding: 8px;
-  border-right: 1px solid #ccc;
+  border-bottom: 2px solid #ccc;
 }
 
 .resizing {
@@ -15,16 +19,14 @@
   top: 0;
   right: 0;
   height: 100vh;
-  width: 1px;
-  background-color: black;
+  width: 2px;
+  background-color: #ccc;
   z-index: 1;
   cursor: col-resize;
-
 }
 
-
 .even {
-  background-color: #f9f9f9;
+  background-color: #e5f3e3;
 }
 
 .odd {

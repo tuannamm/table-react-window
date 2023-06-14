@@ -12,7 +12,7 @@ interface ResizableColumnProps {
 const ResizableColumn = (props: ResizableColumnProps) => {
   const { children, onResize } = props;
 
-  const [width, setWidth] = useState<any>(100);
+  const [width, setWidth] = useState<any>(150);
   const isResizing = useRef(false);
   const cellRef = useRef<any>(null);
 
@@ -28,6 +28,7 @@ const ResizableColumn = (props: ResizableColumnProps) => {
         event.preventDefault();
         event.stopPropagation();
         const newWidth = width + event.movementX;
+        console.log(event.movementX);
         setWidth(newWidth);
         onResize(newWidth);
       }
@@ -35,16 +36,9 @@ const ResizableColumn = (props: ResizableColumnProps) => {
     [width, onResize]
   );
 
-  const handleMouseUp = useCallback(
-    (event: MouseEvent) => {
-      isResizing.current = false;
-      // if (cellRef.current) {
-      //   // const cellWidth = cellRef.current.getBoundingClientRect().width;
-      // }
-      // onResize(width);
-    },
-    [width, onResize]
-  );
+  const handleMouseUp = useCallback((event: MouseEvent) => {
+    isResizing.current = false;
+  }, []);
 
   useEffect(() => {
     document.addEventListener("mousemove", handleMouseMove);
