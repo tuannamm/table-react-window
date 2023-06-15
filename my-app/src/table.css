@@ -10,7 +10,7 @@
 
 .resizable-header-cell {
   position: relative;
-  padding: 8px;
+  padding: 10px 0px;
   border-bottom: 2px solid #ccc;
 }
 

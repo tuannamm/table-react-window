@@ -7,12 +7,13 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 interface ResizableColumnProps {
   children: any;
   onResize: any;
+  columWidth: number;
 }
 
 const ResizableColumn = (props: ResizableColumnProps) => {
-  const { children, onResize } = props;
+  const { children, onResize, columWidth } = props;
 
-  const [width, setWidth] = useState<any>(150);
+  const [width, setWidth] = useState<any>(columWidth);
   const isResizing = useRef(false);
   const cellRef = useRef<any>(null);
 
@@ -28,9 +29,8 @@ const ResizableColumn = (props: ResizableColumnProps) => {
         event.preventDefault();
         event.stopPropagation();
         const newWidth = width + event.movementX;
-        console.log(event.movementX);
         setWidth(newWidth);
-        onResize(newWidth);
+        onResize(event.movementX);
       }
     },
     [width, onResize]
@@ -50,7 +50,11 @@ const ResizableColumn = (props: ResizableColumnProps) => {
   }, [handleMouseMove, handleMouseUp]);
 
   return (
-    <div className="resizable-header-cell" style={{ width }} ref={cellRef}>
+    <div
+      className="resizable-header-cell"
+      style={{ width: columWidth }}
+      ref={cellRef}
+    >
       <>
         {children}
         <div className="resizing" onMouseDown={handleMouseDown}></div>

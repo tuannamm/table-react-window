@@ -8,8 +8,6 @@ import Body from "./components/Body";
 /*
   1. truyen data cho body
   2. state width va setWidths cho Header (moi column co width khac nhau)
-
-
 */
 
 interface TableProps {
@@ -18,12 +16,13 @@ interface TableProps {
 
 const Table = (props: TableProps) => {
   const { data } = props;
-  const [columnWidths, setColumnWidths] = useState<Number[]>([150, 150, 150]); // array width cua moi column
+  const [columnWidths, setColumnWidths] = useState<Number[]>([200, 200, 200]); // array width cua moi column
 
   const setColumnWidth = (index: any, width: any) => {
     setColumnWidths((prev: any) => {
       const newWidths = [...prev];
       newWidths[index] = width;
+      console.log(newWidths);
       return newWidths;
     });
   };

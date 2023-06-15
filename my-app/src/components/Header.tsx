@@ -11,7 +11,31 @@ const Header = (props: HeaderProps) => {
   const { columnWidths, setColumnWidth } = props;
 
   const handleResize = (index: any) => (width: any) => {
-    setColumnWidth(index, width);
+    setColumnWidth(index, columnWidths[index] + width);
+    setColumnWidth(index + 1, columnWidths[index + 1] - width);
+
+    // setColumnWidth(index, columnWidths[index] + width);
+    // setColumnWidth(index + 1, columnWidths[index + 1] - width);
+
+    // if (width > 0) {
+    //   setColumnWidth(index, columnWidths[index] + width);
+    //   setColumnWidth(index + 1, columnWidths[index + 1] - width);
+    // }
+
+    // if (width <= 0 && index < 0) {
+    //   setColumnWidth(index, columnWidths[index] + width);
+    //   setColumnWidth(index, columnWidths[index - 1] - width);
+    // }
+
+    // if (width < 0) {
+    //   setColumnWidth(index, columnWidths[index] - width);
+    //   setColumnWidth(index, columnWidths[index - 1] + width);
+    // }
+
+    // setColumnWidth(index, columnWidths[index + 1] - width);
+    // if (index === columnWidths.length - 1) {
+    //   console.log("last column");
+    // }
   };
 
   return (
@@ -25,13 +49,28 @@ const Header = (props: HeaderProps) => {
       }}
     >
       <div style={{ width: columnWidths[0] }}>
-        <ResizableColumn onResize={handleResize(0)}>ID</ResizableColumn>
+        <ResizableColumn
+          columWidth={columnWidths[0]}
+          onResize={handleResize(0)}
+        >
+          ID
+        </ResizableColumn>
       </div>
       <div style={{ width: columnWidths[1] }}>
-        <ResizableColumn onResize={handleResize(1)}>Name</ResizableColumn>
+        <ResizableColumn
+          columWidth={columnWidths[1]}
+          onResize={handleResize(1)}
+        >
+          Name
+        </ResizableColumn>
       </div>
       <div style={{ width: columnWidths[2] }}>
-        <ResizableColumn onResize={handleResize(2)}>Age</ResizableColumn>
+        <ResizableColumn
+          columWidth={columnWidths[2]}
+          onResize={handleResize(2)}
+        >
+          Age
+        </ResizableColumn>
       </div>
     </div>
   );
