@@ -6,10 +6,11 @@ interface HeaderProps {
   columnWidths: any;
   setColumnWidth: any;
   columns: any;
+  tableHeight?: any;
 }
 
 const Header = (props: HeaderProps) => {
-  const { columnWidths, setColumnWidth, columns } = props;
+  const { columnWidths, setColumnWidth, columns, tableHeight } = props;
 
   const handleResize = (index: any) => (width: any) => {
     if (

@@ -82,6 +82,7 @@ const Table = (props: TableProps) => {
         columns={columns}
         columnWidths={columnWidths}
         setColumnWidth={setColumnWidth}
+        tableHeight={tableHeight}
       />
       <Body columnWidths={columnWidths} data={data} tableHeight={tableHeight} />
     </div>
