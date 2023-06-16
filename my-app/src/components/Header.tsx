@@ -5,41 +5,24 @@ import ResizableColumn from "./ResizableColumn";
 interface HeaderProps {
   columnWidths: any;
   setColumnWidth: any;
+  columns: any;
 }
 
 const Header = (props: HeaderProps) => {
-  const { columnWidths, setColumnWidth } = props;
+  const { columnWidths, setColumnWidth, columns } = props;
 
   const handleResize = (index: any) => (width: any) => {
-    setColumnWidth(index, columnWidths[index] + width);
-    setColumnWidth(index + 1, columnWidths[index + 1] - width);
-
-    // setColumnWidth(index, columnWidths[index] + width);
-    // setColumnWidth(index + 1, columnWidths[index + 1] - width);
-
-    // if (width > 0) {
-    //   setColumnWidth(index, columnWidths[index] + width);
-    //   setColumnWidth(index + 1, columnWidths[index + 1] - width);
-    // }
-
-    // if (width <= 0 && index < 0) {
-    //   setColumnWidth(index, columnWidths[index] + width);
-    //   setColumnWidth(index, columnWidths[index - 1] - width);
-    // }
-
-    // if (width < 0) {
-    //   setColumnWidth(index, columnWidths[index] - width);
-    //   setColumnWidth(index, columnWidths[index - 1] + width);
-    // }
-
-    // setColumnWidth(index, columnWidths[index + 1] - width);
-    // if (index === columnWidths.length - 1) {
-    //   console.log("last column");
-    // }
+    if (
+      index !== columnWidths.length - 1 &&
+      columnWidths[index] + width > 100 &&
+      columnWidths[index + 1] - width > 100
+    )
+      setColumnWidth({ index, width });
   };
 
   return (
     <div
+      id="header"
       className="header-container"
       style={{
         width: `${columnWidths.reduce(
@@ -48,30 +31,17 @@ const Header = (props: HeaderProps) => {
         )}`,
       }}
     >
-      <div style={{ width: columnWidths[0] }}>
-        <ResizableColumn
-          columWidth={columnWidths[0]}
-          onResize={handleResize(0)}
-        >
-          ID
-        </ResizableColumn>
-      </div>
-      <div style={{ width: columnWidths[1] }}>
-        <ResizableColumn
-          columWidth={columnWidths[1]}
-          onResize={handleResize(1)}
-        >
-          Name
-        </ResizableColumn>
-      </div>
-      <div style={{ width: columnWidths[2] }}>
-        <ResizableColumn
-          columWidth={columnWidths[2]}
-          onResize={handleResize(2)}
-        >
-          Age
-        </ResizableColumn>
-      </div>
+      {columns &&
+        columns.map((item: any, index: any) => (
+          <div style={{ width: columnWidths[index] }}>
+            <ResizableColumn
+              columWidth={columnWidths[index]}
+              onResize={handleResize(index)}
+            >
+              {item}
+            </ResizableColumn>
+          </div>
+        ))}
     </div>
   );
 };
