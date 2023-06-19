@@ -1,9 +1,8 @@
-import React from "react";
-
 import "./App.css";
 
 import Table from "./Table";
 
+// data fake 1000 dòng
 const data = new Array(1000).fill({
   id: "1",
   name: "Digi-texx",
@@ -32,7 +31,7 @@ const data = new Array(1000).fill({
 
 const App = () => {
   return (
-    <div className="App" style={{ width: "100%", marginTop: "500px" }}>
+    <div className="App">
       <Table data={data} />
     </div>
   );

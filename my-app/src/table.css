@@ -1,6 +1,5 @@
 .header-container {
   display: flex;
-  
   font-weight: bold;
 }
 
@@ -13,16 +12,15 @@
 
 .resizable-height {
   position: relative;
-  background-color: #f2f2f2;
+  background-color: #f7f2f2;
   cursor: row-resize;
-
+  height: 20px;
 }
 
 .resizing {
   position: absolute;
-  top: 0;
   right: 0;
-  height: 44vh;
+  top: 0;
   width: 2px;
   background-color: #ccc;
   z-index: 1;
@@ -31,7 +29,7 @@
 
 
 .even {
-  background-color: #e5f3e3;
+  background-color: #d7eed3;
 }
 
 .odd {

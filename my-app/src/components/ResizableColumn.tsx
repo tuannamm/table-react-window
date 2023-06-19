@@ -8,10 +8,11 @@ interface ResizableColumnProps {
   children: any;
   onResize: any;
   columWidth: number;
+  height: any;
 }
 
 const ResizableColumn = (props: ResizableColumnProps) => {
-  const { children, onResize, columWidth } = props;
+  const { children, onResize, columWidth, height } = props;
 
   const [width, setWidth] = useState<any>(columWidth);
   const isResizing = useRef(false);
@@ -28,8 +29,10 @@ const ResizableColumn = (props: ResizableColumnProps) => {
       if (isResizing.current && cellRef.current) {
         event.preventDefault();
         event.stopPropagation();
+        // momentX: chieu rong cua chuot khi di chuyen
         const newWidth = width + event.movementX;
-        setWidth(newWidth);
+        setWidth(newWidth); // set lai chieu rong
+        // truyền phần chiều rộng mới vào hàm onResize lift state up lên component cha xử lý
         onResize(event.movementX);
       }
     },
@@ -57,7 +60,11 @@ const ResizableColumn = (props: ResizableColumnProps) => {
     >
       <>
         {children}
-        <div className="resizing" onMouseDown={handleMouseDown}></div>
+        <div
+          className="resizing"
+          style={{ height }}
+          onMouseDown={handleMouseDown}
+        ></div>
       </>
     </div>
   );
