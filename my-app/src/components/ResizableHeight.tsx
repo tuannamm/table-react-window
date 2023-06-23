@@ -2,14 +2,14 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 
 interface ResizableHeightProps {
   onResize: any;
-  width: any;
+  width: number;
 }
 
 const ResizableHeight = (props: ResizableHeightProps) => {
   const { onResize, width } = props;
 
-  const [height, setHeight] = useState<any>(30);
-  // useRef: giu lai gia tri cua bien khi component render lai
+  const [height, setHeight] = useState<number>(30);
+  // useRef: giữ lại giá trị của biến khi component re-render
   const isResizing = useRef(false);
   const cellRef = useRef<any>(null);
 
@@ -24,7 +24,7 @@ const ResizableHeight = (props: ResizableHeightProps) => {
       if (isResizing.current && cellRef.current) {
         event.preventDefault();
         event.stopPropagation();
-        // movementY: chieu cao cua chuot khi di chuyen
+        // movementY: chiều cao của chuột mỗi khi di chuyển
         const newHeight = height + event.movementY;
         setHeight(newHeight); // set lai chieu cao
         // truyền phần chiều cao mới vào hàm onResize lift state up lên component cha xử lý
@@ -38,7 +38,7 @@ const ResizableHeight = (props: ResizableHeightProps) => {
     isResizing.current = false;
   }, []);
 
-  // dom listen mỗi khi mouseup và mousedown
+  // DOM listen mỗi khi mouseup và mousedown
   useEffect(() => {
     document.addEventListener("mousemove", handleMouseMove);
     document.addEventListener("mouseup", handleMouseUp);

@@ -1,19 +1,27 @@
 import React from "react";
 
-import ResizableColumn from "./ResizableColumn";
+import ResizableColumn from "../ResizableColumn";
 
 interface HeaderProps {
-  columnWidths: any;
+  columnWidths: number[];
   onResize: any;
-  columns: any;
-  width: any;
-  height: any;
+  columns: string[];
+  width: number;
+  height: number;
+  enableResizableWidth: boolean;
 }
 
 const Header = (props: HeaderProps) => {
-  const { columnWidths, onResize, columns, width, height } = props;
+  const {
+    columnWidths,
+    onResize,
+    columns,
+    width,
+    height,
+    enableResizableWidth,
+  } = props;
 
-  const handleResize = (index: any) => (width: any) => {
+  const handleResize = (index: number) => (width: number) => {
     // hàm nhận index của column đang resize và width thay đổi của column đó
     if (
       index !== columnWidths.length - 1 &&
@@ -31,9 +39,9 @@ const Header = (props: HeaderProps) => {
         width, // width của header bằng tổng width của tất cả column
       }}
     >
-      {columns &&
-        columns.map((item: any, index: any) => (
-          <div style={{ width: columnWidths[index] }}>
+      {columns.map((item: string, index: number) => (
+        <div style={{ width: columnWidths[index] }}>
+          {enableResizableWidth ? (
             <ResizableColumn
               columWidth={columnWidths[index]} // chiều rộng của column tương ứng với reszeableColumn
               onResize={handleResize(index)} // hàm được gọi khi resize
@@ -41,8 +49,13 @@ const Header = (props: HeaderProps) => {
             >
               {item}
             </ResizableColumn>
-          </div>
-        ))}
+          ) : (
+            <div style={{ width: columnWidths[index] }} className="header">
+              {item}
+            </div>
+          )}
+        </div>
+      ))}
     </div>
   );
 };

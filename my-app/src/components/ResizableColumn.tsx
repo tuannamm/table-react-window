@@ -1,14 +1,10 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 
-/* 
-  1. truyen column co the resizable
-*/
-
 interface ResizableColumnProps {
   children: any;
   onResize: any;
   columWidth: number;
-  height: any;
+  height: number;
 }
 
 const ResizableColumn = (props: ResizableColumnProps) => {
@@ -29,7 +25,7 @@ const ResizableColumn = (props: ResizableColumnProps) => {
       if (isResizing.current && cellRef.current) {
         event.preventDefault();
         event.stopPropagation();
-        // momentX: chieu rong cua chuot khi di chuyen
+        // momentX: chiều rộng của chuột mỗi khi di chuyển
         const newWidth = width + event.movementX;
         setWidth(newWidth); // set lai chieu rong
         // truyền phần chiều rộng mới vào hàm onResize lift state up lên component cha xử lý
@@ -58,14 +54,12 @@ const ResizableColumn = (props: ResizableColumnProps) => {
       style={{ width: columWidth }}
       ref={cellRef}
     >
-      <>
-        {children}
-        <div
-          className="resizing"
-          style={{ height }}
-          onMouseDown={handleMouseDown}
-        ></div>
-      </>
+      {children}
+      <div
+        className="resizing"
+        style={{ height, padding: "1px" }}
+        onMouseDown={handleMouseDown}
+      ></div>
     </div>
   );
 };

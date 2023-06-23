@@ -1,6 +1,7 @@
+import { useState } from "react";
 import "./App.css";
 
-import Table from "./Table";
+import Table from "./components/Table";
 
 // data fake 1000 dòng
 const data = new Array(1000).fill({
@@ -30,9 +31,30 @@ const data = new Array(1000).fill({
 });
 
 const App = () => {
+  const [resizableWidth, setResizableWidth] = useState<boolean>(false);
+  const [resizableHeight, setResizableHeight] = useState<boolean>(false);
+
+  const handleChangeModeWidth = () => {
+    setResizableWidth(!resizableWidth);
+  };
+
+  const handleChangeModeHeight = () => {
+    setResizableHeight(!resizableHeight);
+  };
+
   return (
     <div className="App">
-      <Table data={data} />
+      <button onClick={handleChangeModeWidth}>
+        Resize width mode: {resizableWidth ? "ON" : "OFF"}
+      </button>
+      <button onClick={handleChangeModeHeight}>
+        Resize height mode: {resizableHeight ? "ON" : "OFF"}
+      </button>
+      <Table
+        data={data}
+        enableResizableWidth={resizableWidth}
+        enableResizableHeight={resizableHeight}
+      />
     </div>
   );
 };

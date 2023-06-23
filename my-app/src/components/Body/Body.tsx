@@ -1,10 +1,11 @@
+import { memo } from "react";
 import { FixedSizeList as List } from "react-window";
 
 interface BodyProps {
-  data: any;
-  columnWidths: any;
-  tableHeight?: any;
-  width: any;
+  data: [];
+  columnWidths: number[];
+  tableHeight: number;
+  width: number;
 }
 
 const Body = (props: BodyProps) => {
@@ -25,6 +26,7 @@ const Body = (props: BodyProps) => {
               ...style, // style mặc định của react-window cho mỗi dòng (không bị trắng khi scroll)
               display: "flex",
               alignItems: "center",
+              wordWrap: "break-word",
             }}
           >
             {Object.keys(data[index]).map((key, columnIndex) => (
@@ -45,4 +47,4 @@ const Body = (props: BodyProps) => {
   );
 };
 
-export default Body;
+export default memo(Body);
